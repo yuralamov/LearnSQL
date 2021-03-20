@@ -1,0 +1,15 @@
+# Установка в контейнер docker
+# Установка docker описана в сервере
+# Скачать MS SQL Server
+$ docker pull mcr.microsoft.com/mssql/server:2017-latest
+# Область в локальном каталоге, где будут крутиться файлы базы данных
+$ docker volume create sql2017
+# Запуск
+$ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Flvby@123" -p 1433:1433 -v sql2017:/var/opt/mssql --name sql2017 -h sql2017 -d mcr.microsoft.com/mssql/server:2017-latest
+# Каталог в контейнере, для бэкапов
+$ docker exec -it sql2017 mkdir /var/opt/mssql/backup
+# Так чудить в контейнере
+$ docker exec -it sql2017 "bash"
+# Включение агента mssqlserver
+$ docker exec -it sql2017 /opt/mssql/bin/mssql-conf set sqlagent.enabled true
+$ docker restart sql2017
