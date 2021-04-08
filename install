@@ -13,3 +13,8 @@ $ docker exec -it sql2017 "bash"
 # Включение агента mssqlserver
 $ docker exec -it sql2017 /opt/mssql/bin/mssql-conf set sqlagent.enabled true
 $ docker restart sql2017
+# На клиенте
+$ curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+$ curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list | sudo tee /etc/apt/sources.list.d/msprod.list
+$ deb [arch=amd64] https://packages.microsoft.com/ubuntu/20.04/prod focal main
+$ sudo apt-get update && sudo apt upgrade -y && sudo apt-get install -y mssql-tools unixodbc-dev
